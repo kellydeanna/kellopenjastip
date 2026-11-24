@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kellopenjastip</title>
+
+  <!-- Huruf dari Google Fonts: Cormorant Garamond (judul, elegan) dan Jost (teks biasa) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap">
+
+  <style>
+    /* ============ WARNA & HURUF ============ */
+    :root {
+      --latar: #FAF9F6;      /* putih gading */
+      --kertas: #FFFFFF;
+      --tinta: #1F3A33;      /* hijau tua (warna utama) */
+      --abu: #6B7570;
+      --garis: #E4E2DC;
+      --emas: #A88B5A;       /* aksen emas lembut */
+      --emas-muda: #F3EEE4;
+
+      --huruf-judul: "Cormorant Garamond", Georgia, serif;
+      --huruf-teks: "Jost", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--latar);
+      color: var(--tinta);
+      font-family: var(--huruf-teks);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Pembungkus supaya isi tidak terlalu lebar dan ada jarak di tepi HP */
+    .wadah {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* ============ NAVIGASI ATAS ============ */
+    .nav {
+      position: sticky;      /* menempel di atas saat di-scroll */
+      top: 0;
+      background: var(--latar);
+      border-bottom: 1px solid var(--garis);
+      z-index: 10;
+    }
+    .nav .wadah {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--tinta);
+      font-family: var(--huruf-judul);
+      font-size: 22px;
+      font-weight: 600;
+    }
+    .logo svg { width: 40px; height: 40px; }
+    .menu {
+      display: flex;
+      gap: 24px;
+    }
+    .menu a {
+      color: var(--tinta);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .menu a:hover { color: var(--emas); }
+
+    /* ============ HOME ============ */
+    .home {
+      text-align: center;
+      padding-top: 90px;
+      padding-bottom: 90px;
+    }
+    .kecil-emas {
+      color: var(--emas);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    h1 {
+      font-family: var(--huruf-judul);
+      font-weight: 500;
+      font-size: clamp(40px, 7vw, 68px);
+      line-height: 1.05;
+      margin: 14px 0 18px;
+    }
+    .intro {
+      color: var(--abu);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .tombol {
+      display: inline-block;
+      background: var(--tinta);
+      color: var(--latar);
+      text-decoration: none;
+      padding: 14px 36px;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .tombol:hover { background: var(--emas); }
+
+    /* Info PO di bawah tombol */
+    .info-po {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--garis);           /* trik: warna celah = garis pemisah */
+      border: 1px solid var(--garis);
+      margin-top: 64px;
+      text-align: left;
+    }
+    .info-po div {
+      background: var(--latar);
+      padding: 18px 20px;
+    }
+    .info-po span {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--abu);
+    }
+    .info-po b {
+      font-family: var(--huruf-judul);
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .info-po a { color: var(--tinta); }
+
+    /* ============ OUR CATALOGUE ============ */
+    .katalog {
+      padding-top: 70px;
+      padding-bottom: 90px;
+      border-top: 1px solid var(--garis);
+    }
+    h2 {
+      font-family: var(--huruf-judul);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 46px);
+      text-align: center;
+      margin: 8px 0 20px;
+    }
+    .highlight {
+      background: var(--emas-muda);
+      color: var(--tinta);
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+    }
+    .highlight b { color: var(--emas); }
+
+    /* Grid kartu brand */
+    .grid-brand {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .kartu-brand {
+      background: var(--kertas);
+      border: 1px solid var(--garis);
+      position: relative;
+    }
+    .foto {
+      aspect-ratio: 4 / 3;
+      background: var(--emas-muda);
+      display: grid;
+      place-items: center;
+      font-family: var(--huruf-judul);
+      font-size: 56px;
+      color: var(--emas);
+    }
+    .label {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--tinta);
+      color: var(--latar);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    .isi-brand { padding: 18px 20px 22px; }
+    .isi-brand h3 {
+      font-family: var(--huruf-judul);
+      font-size: 26px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .isi-brand p {
+      color: var(--abu);
+      font-size: 14px;
+      margin: 2px 0 0;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      border-top: 1px solid var(--garis);
+      padding-top: 28px;
+      padding-bottom: 40px;
+      text-align: center;
+      color: var(--abu);
+      font-size: 13px;
+    }
+    footer a { color: var(--tinta); }
+
+    /* ============ BARU (Langkah 3) ============ */
+
+    /* Elemen dengan atribut hidden benar-benar disembunyikan */
+    [hidden] { display: none !important; }
+
+    /* Kartu brand sekarang berupa tombol: hapus gaya bawaan tombol */
+    button.kartu-brand {
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      padding: 0;
+      width: 100%;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    button.kartu-brand:hover {
+      border-color: var(--emas);
+      transform: translateY(-3px);
+    }
+    .lihat {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--emas);
+    }
+
+    /* Halaman produk satu brand */
+    .kembali {
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--abu);
+      cursor: pointer;
+    }
+    .kembali:hover { color: var(--tinta); }
+    .judul-brand {
+      font-family: var(--huruf-judul);
+      font-weight: 500;
+      font-size: clamp(30px, 5vw, 42px);
+      margin: 12px 0 4px;
+    }
+    .sub-brand {
+      color: var(--abu);
+      margin: 0 0 28px;
+    }
+    .grid-produk {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .kartu-produk {
+      background: var(--kertas);
+      border: 1px solid var(--garis);
+      display: flex;
+      flex-direction: column;
+    }
+    .kartu-produk .foto {
+      aspect-ratio: 1 / 1;
+      font-size: 44px;
+    }
+    .isi-produk {
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .isi-produk h4 {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin: 0;
+    }
+    .isi-produk .catatan {
+      color: var(--abu);
+      font-size: 13px;
+      margin: 0;
+    }
+    .isi-produk .harga {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--garis);
+      font-family: var(--huruf-judul);
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    /* ============ BARU (Langkah 4): FOTO ============ */
+    .foto {
+      position: relative;
+      overflow: hidden;
+    }
+    .foto img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;   /* foto mengisi kotak tanpa gepeng, kelebihannya dipotong */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVIGASI ATAS ================= -->
+  <header class="nav">
+    <div class="wadah">
+      <a href="#home" class="logo">
+        <!-- Logo: huruf K di dalam keranjang, dengan pesawat terbang di atasnya -->
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M6 26 Q 26 2 50 12" fill="none" stroke="#A88B5A" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <path d="M47 6 L61 12 L47 18 L50 12 Z" fill="#A88B5A"/>
+          <path d="M20 32 Q 32 16 44 32" fill="none" stroke="#1F3A33" stroke-width="2.5"/>
+          <path d="M12 32 H52 L47 58 H17 Z" fill="#1F3A33"/>
+          <text x="32" y="52" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="24" font-weight="600" fill="#FAF9F6">K</text>
+        </svg>
+        kellopenjastip
+      </a>
+      <nav class="menu">
+        <a href="#home">Home</a>
+        <a href="#catalogue">Our Catalogue</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= HOME ================= -->
+  <section class="home" id="home">
+    <div class="wadah">
+      <p class="kecil-emas">Open PO · Taiwan</p>
+      <h1>Taiwan's finest treats,<br>delivered to your door</h1>
+      <p class="intro">
+        We shop Taiwan's best-loved pastries and snacks straight from their
+        official stores, then bring them home to you in Jakarta and Bandung.
+      </p>
+      <a href="#catalogue" class="tombol">Shop Now</a>
+
+      <div class="info-po">
+        <div><span>Close PO</span><b>13 January 2027</b></div>
+        <div><span>Arrives in Jakarta</span><b>21 January 2027</b></div>
+        <div><span>Arrives in Bandung</span><b>23 January 2027</b></div>
+        <div><span>Payment</span><b>Full payment upfront</b><br><small>shipping fee not included</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUR CATALOGUE ================= -->
+  <section class="katalog" id="catalogue">
+    <div class="wadah">
+      <p class="kecil-emas" style="text-align:center">Choose a brand</p>
+      <h2>Our Catalogue</h2>
+
+      <div class="highlight">
+        <b>Free shipping</b> for order above <b>750K</b>
+      </div>
+
+      <!-- BARU (Langkah 2): kotak kosong, kartu brand diisi otomatis oleh JavaScript -->
+      <div class="grid-brand" id="grid-brand"></div>
+
+      <!-- BARU (Langkah 3): halaman produk satu brand, tersembunyi sampai brand diklik -->
+      <div id="halaman-brand" hidden>
+        <button class="kembali" type="button" onclick="kembali()">← All brands</button>
+        <h3 class="judul-brand" id="judul-brand"></h3>
+        <p class="sub-brand" id="sub-brand"></p>
+        <div class="grid-produk" id="grid-produk"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wadah">
+      Have a question? Chat with us on WhatsApp
+      <a href="https://wa.me/6282130336433" target="_blank">+62 821-3033-6433</a>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT (BARU, Langkah 2) ================= -->
+  <script>
+    // ---------- 1. DAFTAR BRAND ----------
+    // id   : nama pendek tanpa spasi, dipakai untuk menghubungkan brand dengan produknya
+    // label: tulisan kecil di pojok kartu (boleh dikosongkan: label: "")
+    const BRANDS = [
+      { id: "lotus",  name: "L'Atelier Lotus", label: "Popular",    image: "kellopenjastip/foto/lotus.jpg" },
+      { id: "sunny",  name: "Sunny Hills",     label: "Iconic",         image: "kellopenjastip/foto/sunny-hills.jpg" },
+      { id: "chiate", name: "Chia Te",         label: "Tourist Favorite", image: "kellopenjastip/foto/chia-te.jpg" },
+    ];
+
+    // ---------- 2. DAFTAR PRODUK ----------
+    // brand: harus sama persis dengan id brand di atas
+    const PRODUCTS = [
+      { brand: "lotus",  name: "Spring Onion Nougat Crackers 16 pcs",  price: 250000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-spring-onion-16.jpg" },
+      { brand: "lotus",  name: "Golden Nugget Nougat Crackers 14 pcs", price: 250000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-golden-nugget-14.jpg" },
+      { brand: "lotus",  name: "Golden Coin Nougat Crackers 28 pcs",   price: 250000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-golden-coin-28.jpg" },
+      { brand: "lotus",  name: "Coffee Nougat Crackers 16 pcs",        price: 275000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-coffee-16.jpg" },
+      { brand: "lotus",  name: "Chocolate Nougat Crackers 16 pcs",     price: 275000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-chocolate-16.jpg" },
+      { brand: "lotus",  name: "Spicy Nougat Crackers 14 pcs",         price: 275000, note: "Best before: ± 30 days after purchase", image: "kellopenjastip/foto/lotus-spicy-14.jpg" },
+
+      { brand: "sunny",  name: "Pineapple Cake – Box of 10",           price: 400000, note: "Best before: ± 21–28 days after purchase", image: "kellopenjastip/foto/sunny-pineapple-10.jpg" },
+      { brand: "sunny",  name: "Pineapple Cake – Box of 16",           price: 550000, note: "Best before: ± 21–28 days after purchase", image: "kellopenjastip/foto/sunny-pineapple-16.jpg" },
+
+      { brand: "chiate", name: "Nougat Green Onion Crackers 12 pcs",   price: 200000, note: "Best before: ± 40 days after purchase", image: "kellopenjastip/foto/chiate-green-onion-12.jpg" },
+      { brand: "chiate", name: "Pineapple Pastry 6 pcs",               price: 250000, note: "Best before: ± 40 days after purchase", image: "kellopenjastip/foto/chiate-pineapple-6.jpg" },
+      { brand: "chiate", name: "Pineapple Pastry 12 pcs",               price: 250000, note: "Best before: ± 40 days after purchase", image: "kellopenjastip/foto/chiate-pineapple-12.jpg" },
+      { brand: "chiate", name: "Pineapple & Egg Yolk Pastry 6 pcs",    price: 275000, note: "Best before: ± 15 days after purchase", image: "kellopenjastip/foto/chiate-egg-yolk-6.jpg" },
+      { brand: "chiate", name: "Pineapple & Egg Yolk Pastry 12 pcs",   price: 550000, note: "Best before: ± 15 days after purchase", image: "kellopenjastip/foto/chiate-egg-yolk-12.jpg" },
+    ];
+
+    // ---------- 3. FORMAT RUPIAH ----------
+    function rupiah(angka) {
+      return "Rp" + angka.toLocaleString("id-ID");
+    }
+
+    // ---------- BARU (Langkah 4): KOTAK FOTO ----------
+    // Menampilkan foto. Kalau file fotonya belum ada, foto dihapus
+    // dan yang terlihat huruf awal brand di belakangnya.
+    function kotakFoto(gambar, keterangan, huruf) {
+      let img = "";
+      if (gambar) {
+        img = `<img src="${gambar}" alt="${keterangan}" loading="lazy" onerror="this.remove()">`;
+      }
+      return `<div class="foto">${huruf}${img}</div>`;
+    }
+
+    // ---------- 4. BUAT KARTU BRAND OTOMATIS ----------
+    const gridBrand = document.getElementById("grid-brand");
+
+    for (const brand of BRANDS) {
+      // ambil hanya produk milik brand ini
+      const produkBrand = PRODUCTS.filter(produk => produk.brand === brand.id);
+
+      // hitung jumlah produk dan harga termurah
+      const jumlah = produkBrand.length;
+      const termurah = Math.min(...produkBrand.map(produk => produk.price));
+
+      // label hanya muncul kalau diisi
+      let label = "";
+      if (brand.label) {
+        label = `<span class="label">${brand.label}</span>`;
+      }
+
+      gridBrand.innerHTML += `
+        <button class="kartu-brand" type="button" onclick="bukaBrand('${brand.id}')">
+          ${label}
+          ${kotakFoto(brand.image, brand.name, brand.name[0])}
+          <div class="isi-brand">
+            <h3>${brand.name}</h3>
+            <p>${jumlah} products</p>
+            <span class="lihat">View products →</span>
+          </div>
+        </button>
+      `;
+    }
+
+    // ---------- 5. BARU (Langkah 3): BUKA SATU BRAND ----------
+    function bukaBrand(idBrand) {
+      // cari data brand yang diklik
+      const brand = BRANDS.find(b => b.id === idBrand);
+      const produkBrand = PRODUCTS.filter(produk => produk.brand === idBrand);
+
+      // isi judul dan jumlah produk
+      document.getElementById("judul-brand").textContent = brand.name;
+      document.getElementById("sub-brand").textContent = produkBrand.length + " products available for this PO";
+
+      // buat kartu produk
+      const gridProduk = document.getElementById("grid-produk");
+      gridProduk.innerHTML = "";
+      for (const produk of produkBrand) {
+        gridProduk.innerHTML += `
+          <div class="kartu-produk">
+            ${kotakFoto(produk.image, produk.name, brand.name[0])}
+            <div class="isi-produk">
+              <h4>${produk.name}</h4>
+              <p class="catatan">${produk.note}</p>
+              <div class="harga">${rupiah(produk.price)}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // sembunyikan daftar brand, tampilkan halaman brand
+      document.getElementById("grid-brand").hidden = true;
+      document.getElementById("halaman-brand").hidden = false;
+      document.getElementById("catalogue").scrollIntoView({ behavior: "smooth" });
+    }
+
+    // ---------- 6. BARU (Langkah 3): KEMBALI KE DAFTAR BRAND ----------
+    function kembali() {
+      document.getElementById("halaman-brand").hidden = true;
+      document.getElementById("grid-brand").hidden = false;
+      document.getElementById("catalogue").scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+
+</body>
+</html>
